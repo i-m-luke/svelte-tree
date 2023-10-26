@@ -18,7 +18,7 @@
           </div>
        {/if}
           
-       <button on:click={toggleIsOpen} on:keypress={toggleIsOpen}>
+        <button on:click={toggleIsOpen}>
             {`${nodeInfo.name} ${nodeState}`}
         </button>
     </div>
