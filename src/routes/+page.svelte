@@ -18,17 +18,17 @@
     let parentNodeName: string;
 
     const addNodeBtnA_OnClick = () => {
-        const findNode = (name: string, nodes: TreeNodeInfo[]): TreeNodeInfo | undefined => {          
+        const findNodeByName = (name: string, nodes: TreeNodeInfo[]): TreeNodeInfo | undefined => {          
             for (const node of nodes) {
-            if (node.name === name) return node;            
-            const foundNode = findNode(name, node.childNodes);
-            if (foundNode) return foundNode;
+                if (node.name === name) return node;            
+                const foundNode = findNodeByName(name, node.childNodes);
+                if (foundNode) return foundNode;
             }  
             return undefined;
         }
-
+        // "state" is the store that's passed to the the Tree component
         state.update(curr => {         
-            findNode(parentNodeName, curr)?.childNodes.push({ isRoot: false, name: newChildNodeName, childNodes: []});
+            findNodeByName(parentNodeName, curr)?.childNodes.push({ isRoot: false, name: newChildNodeName, childNodes: []});
             return curr;
         })
 
@@ -67,8 +67,8 @@
       <span>PARENT NODE NAME:</span>
       <input bind:value={parentNodeName}>
     </div>
-    <button on:click={addNodeBtnB_OnClick}>Add Node (not working)</button> <!-- This is not working at all -->
-    <button on:click={addNodeBtnA_OnClick}>Add Node (kinda working)</button> <!-- The node is added, but it's visible only after reopenning the node -->
+    <button on:click={addNodeBtnA_OnClick}>Add Node (kinda working)</button> <!-- This is not working at all -->
+    <button on:click={addNodeBtnB_OnClick}>Add Node (not working)</button> <!-- The node is added, but it's visible only after reopenning the node -->
     <Tree state={state} />
   </main>
 
